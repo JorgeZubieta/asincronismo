@@ -1,0 +1,16 @@
+{
+  "name": "asincronismo",
+  "version": "1.0.0",
+  "description": "trabajar asincronismo con JavaScript",
+  "main": "src/index.js",
+  "scripts": { 
+    "callback": "node src/callback/index.js"
+  },
+  "keywords": [
+    "callbacks",
+    "promises",
+    "async"
+  ],
+  "author": "Jorge Zubieta",
+  "license": "MIT"
+}
