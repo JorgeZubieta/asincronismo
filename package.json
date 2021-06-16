@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "trabajar asincronismo con JavaScript",
   "main": "src/index.js",
-  "scripts": { 
+  "scripts": {
     "callback": "node src/callback/index.js"
   },
   "keywords": [
@@ -12,5 +12,8 @@
     "async"
   ],
   "author": "Jorge Zubieta",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "xmlhttprequest": "^1.8.0"
+  }
 }
