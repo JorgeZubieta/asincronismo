@@ -45,3 +45,13 @@ somethingWillHappen2()
     .then(() => console.log('----------------------------------'))
     .catch(err => console.error(err))
     // mostrara los detalles la ruta de lo que sucedio en el error
+
+
+// llamado de Promesas encadenadas
+Promise.all([somethingWillHappen(), somethingWillHappen2()])
+    .then(Response => {
+        console.log('Arrays of results', Response);
+    })
+    .catch(err => {
+        console.error(err);
+    })
