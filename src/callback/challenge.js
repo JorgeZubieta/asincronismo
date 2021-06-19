@@ -5,6 +5,12 @@
 let XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 //lo hemos instanciadpo
 
+
+// esta sentencia es para la 2nda parte!
+let api = 'https://rickandmortyapi.com/api/character/';
+// direccion de la API
+
+
 function fetchData(url_api, callback){ //le pasamos a la funcnion dos valores, url a utilizar y un call bacl
 	let xhttp = new XMLHttpRequest(); //generamos la referencia al objeto xhttp (shorcut = atajo) que es = a un new a la instancia que acabamos de taer. 
         
@@ -37,29 +43,29 @@ function fetchData(url_api, callback){ //le pasamos a la funcnion dos valores, u
     xhttp.send(); //Envio de la solicitud.
 }
 
+// ----------------2nd PARTE----------------------------
 
-// Aqui vemos como utlizar XMLHttpRequest, la vieja escuela
-functionfetchData(url_api, callback) {  //creacion de la funcion pasandole como parametros url_api y un callback 
-let xhttp = new XMLHttpRequest(); 
-//generar la referecia al objeto que necesito 
+// primero buscamos la lista de personajes
+fetchData(api, function(error1, data1) {
+    // si error, matamos retornando un error
+    if(error1) return console.error(error1);
+    // luego buscamos en la api el id de Rick 
+        fetchData(api + data1.results[0].id, function (error2, data2) { 
+        //peticiona la AIP de la cantidad de personasjes, campo count
+        
+        if(error2) return console.error(error2);
+        // si error, matamos retornando un error
 
-xhttp.open('GET', url_api, true); //abrir una url o un llamado a una url usando.open(http request method to use, url_api, indicar si se hace de forma asincrona la funcion) 
-xhttp.onreadystatechange = function (event) { //escuchar lo que hace la conexion con la url si sucede algun cambio y se usa una funcion para saber este dato
-	
-	if(xhttp.readyState === 4) { //se hace la validacion para saber si el resultado en el que se encuentra tu peticion es satisfactoria. Saber si se completo la peticion
-		if(xhttp.status === 200) { //Saber el estatus en la que se encuentra la peticion, si bien se completó la peticion, queremos saber si es correcta en el sentido de si encontro el servidor. Necesitamos un 200 
-			callback(null, JSON.parse(xhttp.responseText)); //primer valor del callback dentro de node es el error (se deja error en null), luego el resultado del llamado a la Api. Parsear el JSON 
-		} else {  //mandar a llamar a error cuando no suceda todo correctamente
-			const error = newError('Error' + url_api) //creacion de la constate error la cual genera un objeto error que contiene un string Error y la url de la api
-			return callback(error, null) //retornar el collback ahora si pasando el objeto error antes creado para que me lo muestre.
-		}
-	}
-} 
-xhttp.send(); //mandar la solicitud con .send() 
-} 
-
-// Links y referecias
-// https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/open  
-// https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/onreadystatechange
-// https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/readyState 
-// https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/JSON/parse
+            // por ultimo la consulta a la api que contiene su dimension
+            fetchData(data2.origin.url, function(error3, data3) {
+            // si error, matamos retornando un error
+                if(error3) return console.error(error3);
+                    // mostramos los resultados :) 
+                    console.log(data1.info.count);
+                    console.log(data2.name);
+                    console.log(data3.dimension);
+            });
+        })
+});
+// agregamos este challenge al scripts en el package.JSON!!!
+// Asi lo podemos ejecutar desde terminal
